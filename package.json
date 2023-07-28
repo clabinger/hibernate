@@ -1,0 +1,30 @@
+{
+  "name": "hibernate",
+  "version": "2.0.0",
+  "description": "Accept hibernate requests and store them to be read and responded to by computers",
+  "type": "module",
+  "main": "index.js",
+  "repository": "https://github.com/clabinger/hibernate",
+  "author": "Cooper Labinger",
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "lint": "npx eslint .",
+    "deploySetHibernateFlag": "gcloud functions deploy setHibernateFlag --gen2 --region=us-central1 --runtime=nodejs18 --source=. --entry-point=setHibernateFlag --trigger-http --allow-unauthenticated",
+    "deployReadHibernateFlag": "gcloud functions deploy readHibernateFlag --gen2 --region=us-central1 --runtime=nodejs18 --source=. --entry-point=readHibernateFlag --trigger-http --allow-unauthenticated",
+    "predeploy": "npm run lint",
+    "deploy": "npm run deploySetHibernateFlag && npm run deployReadHibernateFlag"
+  },
+  "dependencies": {
+    "@google-cloud/firestore": "^6.7.0",
+    "@google-cloud/functions-framework": "^3.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.41.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5"
+  }
+}
