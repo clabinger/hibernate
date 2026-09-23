@@ -2,7 +2,8 @@ import fs from 'fs';
 import functions from '@google-cloud/functions-framework';
 import Firestore from '@google-cloud/firestore';
 
-const loadJSON = (path) => JSON.parse(fs.readFileSync(new URL(path, import.meta.url)));
+const loadJSON = (path) =>
+  JSON.parse(fs.readFileSync(new URL(path, import.meta.url)));
 
 const config = loadJSON('./config.json');
 const db = new Firestore();
