@@ -12,10 +12,12 @@
     "node": ">=24.0.0"
   },
   "scripts": {
-    "lint": "npx eslint .",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "deploySetHibernateFlag": "gcloud functions deploy setHibernateFlag --gen2 --region=us-central1 --runtime=nodejs24 --source=. --entry-point=setHibernateFlag --trigger-http --allow-unauthenticated",
     "deployReadHibernateFlag": "gcloud functions deploy readHibernateFlag --gen2 --region=us-central1 --runtime=nodejs24 --source=. --entry-point=readHibernateFlag --trigger-http --allow-unauthenticated",
-    "predeploy": "npm run lint",
+    "predeploy": "npm run format:check; npm run lint",
     "deploy": "npm run deploySetHibernateFlag && npm run deployReadHibernateFlag"
   },
   "dependencies": {
@@ -23,8 +25,9 @@
     "@google-cloud/functions-framework": "^5.0.5"
   },
   "devDependencies": {
-    "eslint": "^8.41.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.27.5"
+    "@eslint/js": "^10.0.0",
+    "eslint": "^10.0.0",
+    "globals": "^16.0.0",
+    "prettier": "^3.6.0"
   }
 }
