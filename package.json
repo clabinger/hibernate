@@ -9,12 +9,12 @@
   "license": "MIT",
   "private": true,
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "lint": "npx eslint .",
-    "deploySetHibernateFlag": "gcloud functions deploy setHibernateFlag --gen2 --region=us-central1 --runtime=nodejs18 --source=. --entry-point=setHibernateFlag --trigger-http --allow-unauthenticated",
-    "deployReadHibernateFlag": "gcloud functions deploy readHibernateFlag --gen2 --region=us-central1 --runtime=nodejs18 --source=. --entry-point=readHibernateFlag --trigger-http --allow-unauthenticated",
+    "deploySetHibernateFlag": "gcloud functions deploy setHibernateFlag --gen2 --region=us-central1 --runtime=nodejs24 --source=. --entry-point=setHibernateFlag --trigger-http --allow-unauthenticated",
+    "deployReadHibernateFlag": "gcloud functions deploy readHibernateFlag --gen2 --region=us-central1 --runtime=nodejs24 --source=. --entry-point=readHibernateFlag --trigger-http --allow-unauthenticated",
     "predeploy": "npm run lint",
     "deploy": "npm run deploySetHibernateFlag && npm run deployReadHibernateFlag"
   },
