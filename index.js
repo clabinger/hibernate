@@ -11,12 +11,23 @@ const db = new Firestore();
 functions.http('setHibernateFlag', async (req, res) => {
   // Write the current time to the firestore database
 
-  // Must have correct token to set the flag
-  if (req.body.token !== config.token) {
-    return res.send('Correct token not provided');
+  if (req.method !== 'POST') {
+    return res.status(405).send('Method Not Allowed');
   }
 
-  await db.collection('main').doc(req.body.computerId).set({
+  if (req.body?.token !== config.token) {
+    return res.status(401).send('Correct token not provided');
+  }
+
+  let docRef;
+
+  try {
+    docRef = db.collection('main').doc(req.body?.computerId);
+  } catch {
+    return res.status(400).send('Invalid computerId');
+  }
+
+  await docRef.set({
     time: Firestore.FieldValue.serverTimestamp(),
   });
 
@@ -26,7 +37,20 @@ functions.http('setHibernateFlag', async (req, res) => {
 functions.http('readHibernateFlag', async (req, res) => {
   // Return true if the flag time stored in the database is within the last 5 minutes
 
-  const doc = await db.collection('main').doc(req.body.computerId).get();
+  if (req.method !== 'POST') {
+    return res.status(405).send('Method Not Allowed');
+  }
+
+  let docRef;
+
+  try {
+    docRef = db.collection('main').doc(req.body?.computerId);
+  } catch {
+    return res.status(400).send('Invalid computerId');
+  }
+
+  const doc = await docRef.get();
+
   const flagTime = new Date(doc.data().time.toMillis());
   const currentTime = new Date();
   const threshold = 1000 * 60 * 5; // 5 minutes, in milliseconds
