@@ -6,10 +6,10 @@ Hibernate computers with a POST request
 
 This app uses two cloud functions:
 
-* __setHibernateFlag__  
+- **setHibernateFlag**  
   Save the current time to the Cloud Firestore database for a given computer ID.
 
-* __readHibernateFlag__  
+- **readHibernateFlag**  
   Return `true` if the database time for a given computer ID is within the last 5 minutes, `false` otherwise.
 
 The PC can fetch the `readHibernateFlag` function every 1 minute, and hibernate if it returns `true`.
@@ -26,10 +26,10 @@ Version 1.0.0 supports a single computer and uses Cloud Functions and Cloud Fire
 
 2. Deploy the cloud functions:
 
-    ```bash
-    npm install
-    npm run deploy
-    ```
+   ```bash
+   npm install
+   npm run deploy
+   ```
 
 ## PC Integration
 
